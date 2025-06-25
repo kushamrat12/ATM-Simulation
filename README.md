@@ -49,25 +49,19 @@ A simple **console-based ATM simulation** project written in Java to practice co
    java Atm
 
 
-📸 Sample Output
-Check Balance(C)
-Deposit Money(D)
-Withdraw Money(W)
-Enter 0 for exit
-Select any one option: d
-Enter deposited money: 500
-Deposit Money is: 500
-Current balance is: 2500
+## 📸 Sample Output
+![image](https://github.com/user-attachments/assets/88d0b241-b970-4aaa-9b1e-046f6c226369)
 
 
-📂 File Structure
+
+## 📂 File Structure
 ATM-Simulation/
 ├── Atm.java
 └── README.md
 
-📃 License
+## 📃 License
 This project is open-source and free to use for educational purposes.
 
-🙋‍♂️ Author
+## 🙋‍♂️ Author
 Kusham Rathee
 Feel free to connect on https://www.linkedin.com/in/kusham-rathee-884607244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app or star this repository if you found it helpful! 🌟
