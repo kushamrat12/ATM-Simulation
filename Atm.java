@@ -69,6 +69,7 @@ public class Atm {
                        }
                    System.out.println("Current balance is: "+balance);
                break;
+                      sc.close();
 
        }
 
