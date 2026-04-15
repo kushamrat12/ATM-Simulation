@@ -52,7 +52,7 @@ A simple console-based ATM simulation project written in Java to practice core p
 
 
 ## 📸 Sample Output
-![image](https://github.com/user-attachments/assets/88d0b241-b970-4aaa-9b1e-046f6c226369)
+![image](output.png)
 
 
 
