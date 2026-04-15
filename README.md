@@ -1,13 +1,12 @@
 # 💳 ATM Simulation in Java
-
-A simple **console-based ATM simulation** project written in Java to practice core programming concepts like:
+A robust banking simulation demonstrating core Object-Oriented Programming (OOPS) principles.
+A simple console-based ATM simulation project written in Java to practice core programming concepts like:
 
 - ✅ Data types
-- ✅ Conditional statements
-- ✅ Loops
-- ✅ Switch-case
-- ✅ Functions
-
+- ✅ Encapsulation
+- ✅ Inheritance
+- ✅ Abstraction
+  
 ---
 
 ## 📌 Features
@@ -17,7 +16,11 @@ A simple **console-based ATM simulation** project written in Java to practice co
 - ➖ Withdraw Money (with validation for insufficient funds)  
 - 🔄 Menu-driven interface  
 - 🔒 Input validation (no negative or zero deposits/withdrawals)  
-- 🔠 Accepts both uppercase and lowercase inputs  
+- 🔠 Accepts both uppercase and lowercase inputs
+- Encapsulation: Private data members for security (PIN, Balance).
+- Inheritance: Specialized `SavingsAccount` extending the base `Account`.
+- Abstraction: Defined a `Transaction` interface for modularity.
+- Exception Handling: Custom `InsufficientFundsException` for error management.
 
 ---
 
@@ -30,7 +33,6 @@ A simple **console-based ATM simulation** project written in Java to practice co
 
 ## 🧠 Concepts Practiced
 
-- `if-else`, `switch-case`, `while loop`
 - Method creation and calling
 - Static/global variables
 - Scanner input and buffer handling
