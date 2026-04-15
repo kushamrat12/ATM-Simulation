@@ -1,81 +1,117 @@
-// Display Menu Options
 import java.util.Scanner;
-public class Atm {
 
-    static int balance =2000;
-    public static int checkBalance() {
+// 1. Interface (Showing High-Level Abstraction)
+interface Transaction {
+    void deposit(double amount);
+    void withdraw(double amount) throws Exception;
+}
 
-        return balance;
-
-    }
-    public static int depositMoney(int m){
-
-        int deposit = m;
-        balance = balance+deposit;
-       return deposit;
-    }
-   public static int withdrawMoney(int n){
-
-        int withdraw = n;
-
-
-            balance = balance-withdraw;
-                   return withdraw;
-
-
-    }
-    public static void main(String[] args) {
-
-        System.out.println("Check Balance(C)");
-        System.out.println("Deposit Money(D)");
-        System.out.println("Withdraw Money(W)");
-        System.out.println("Enter 0 for exit");
-        Scanner sc = new Scanner(System.in);
-        while(true){
-
-        System.out.println("Select any one option: ");
-            String opt = sc.nextLine();
-            opt = opt.toUpperCase();
-            if(opt.equals("0")){
-                       break;
-                   }
-
-              switch (opt){
-               case "C" :
-                    System.out.println("Available balance is: "+checkBalance());
-
-               break;
-               case "D" :
-                   System.out.println("Enter deposited money: ");
-                       int m = sc.nextInt();
-                       sc.nextLine();
-                   if(m<=0){
-                       System.out.println("Invalid amount");
-                   }
-                   else{
-                       System.out.println("Deposit Money is: "+depositMoney(m));
-                   }
-                   System.out.println("Current balance is: "+balance);
-               break;
-               case "W" :
-                   System.out.println("Enter withdraw money: ");
-                       int n = sc.nextInt();
-                       sc.nextLine();
-                       if(n>balance || n<=0 ){
-                           System.out.println("Insufficient fund");
-                       }
-                       else {
-                           System.out.println("Withdrawal money is: " + withdrawMoney(n));
-                       }
-                   System.out.println("Current balance is: "+balance);
-               break;
-                      sc.close();
-
-       }
-
-        }
+// 2. Custom Exception (Showing Error Handling)
+class InsufficientFundsException extends Exception {
+    public InsufficientFundsException(String message) {
+        super(message);
     }
 }
+
+// 3. Base Class
+class Account implements Transaction {
+    protected double balance;
+    private int pin;
+
+    public Account(double initialBalance, int pin) {
+        this.balance = initialBalance;
+        this.pin = pin;
+    }
+
+    public boolean validatePin(int enteredPin) {
+        return this.pin == enteredPin;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    @Override
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Successfully deposited: " + amount);
+        }
+    }
+
+    @Override
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount > balance) {
+            throw new InsufficientFundsException("Error: Insufficient balance. Current: " + balance);
+        }
+        balance -= amount;
+        System.out.println("Successfully withdrawn: " + amount);
+    }
+}
+
+// 4. Child Class (Showing Inheritance & Polymorphism)
+class SavingsAccount extends Account {
+    private final double MIN_BALANCE = 500.0;
+
+    public SavingsAccount(double initialBalance, int pin) {
+        super(initialBalance, pin);
+    }
+
+    @Override
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (balance - amount < MIN_BALANCE) {
+            throw new InsufficientFundsException("Error: Minimum balance of " + MIN_BALANCE + " must be maintained.");
+        }
+        super.withdraw(amount);
+    }
+}
+
+public class AtmSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Account myAccount = new SavingsAccount(2000.0, 1234);
+
+        System.out.println("--- Secure Java ATM ---");
+        System.out.print("Enter PIN: ");
+        int pin = sc.nextInt();
+
+        if (!myAccount.validatePin(pin)) {
+            System.out.println("Invalid PIN. System Locked.");
+            return;
+        }
+
+        while (true) {
+            System.out.print("\n1. Balance\n2. Deposit\n3. Withdraw\n0. Exit\nChoice: ");
+            int choice = sc.nextInt();
+
+            if (choice == 0) break;
+
+            try {
+                switch (choice) {
+                    case 1:
+                        System.out.println("Balance: " + myAccount.getBalance());
+                        break;
+                    case 2:
+                        System.out.print("Amount: ");
+                        myAccount.deposit(sc.nextDouble());
+                        break;
+                    case 3:
+                        System.out.print("Amount: ");
+                        myAccount.withdraw(sc.nextDouble());
+                        break;
+                }
+            } catch (Exception e) {
+                // Catching the custom exception (Abstraction & Robustness)
+                System.out.println(e.getMessage());
+            }
+        }
+        sc.close();
+    }
+}
+
+
+                  
+      
 
 
 
